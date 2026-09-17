@@ -1,0 +1,12 @@
+{
+  "extends": "@yeewee/ts-config/tsconfig.base.json",
+  "compilerOptions": {
+    // TypeScript 6.0 defaults `types` to [], so node_modules/@types is no
+    // longer auto-included. Node projects must name the global type packages
+    // they need; a browser project would list none of these.
+    "types": ["node"],
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true
+  },
+  "include": ["src"]
+}

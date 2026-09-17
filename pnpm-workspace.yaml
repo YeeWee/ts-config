@@ -1,0 +1,4 @@
+# `example/` is a real consumer of this package, so the config can be proven
+# to work (and to bite) without touching any other repo.
+packages:
+  - example

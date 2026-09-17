@@ -1,0 +1,35 @@
+{
+  // Policy only: the settings that must be identical in every project.
+  // Layout (include/exclude, rootDir, outDir, noEmit) stays in the consuming
+  // project's own tsconfig, so this file never has to know what a project
+  // looks like. TypeScript 6.0 requires an explicit `rootDir` for emitting
+  // projects, which is exactly why it belongs there and not here.
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    // Import the file that actually exists: "./impl.ts", not "./impl.js".
+    // TypeScript rewrites the extension on emit, so the published output is
+    // still ".js" — but Node can also run the source directly, which means
+    // running a test file needs no loader. The ".js-in-a-.ts-file" convention
+    // would force every project to add tsx/vitest just to run `node --test`.
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+
+    "strict": true,
+    // Indexing an array or record yields `T | undefined`. Without this, a
+    // missing key reads as present and fails far from the mistake.
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // Forces `import type` for type-only imports, which keeps the emitted
+    // module graph honest and matches the isolatedModules constraint.
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+
+    "skipLibCheck": true
+  }
+}
