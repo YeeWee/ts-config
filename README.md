@@ -37,6 +37,12 @@ export default config({ tsconfigRootDir: import.meta.dirname });
 module.exports = require("@yeewee/ts-config/dependency-cruiser")("src/packages");
 ```
 
+加一个 `.prettierignore`（锁文件是 pnpm 生成的，prettier 不该碰它，否则每次 `install` 后 `format:check` 都会挂）：
+
+```
+pnpm-lock.yaml
+```
+
 工具本身（`typescript`、`eslint`、`prettier`、`dependency-cruiser`）仍是项目自己的 devDependencies——项目要运行这些二进制。ESLint 的插件与 parser 由本包携带，项目不需要单独安装。
 
 **import 写真实后缀：`import { x } from "./impl.ts"`。** 编译时改写成 `.js`，源码因此能被 `node` 直接运行，跑测试不需要 loader。理由见 `docs/adr/0002`。
